@@ -1,11 +1,11 @@
-# 🤖 Basheera - AI-Powered Personal Assistant
+# 🤖 AI-Powered Personal Assistant
 
-**Basheera** is an AI-powered desktop assistant built using **WinUI 3** and **C++/WinRT**, integrating the **Gemini API** for natural language processing.
+This is an AI-powered desktop assistant built using **WinUI 3** and **C++/WinRT**, integrating the **Gemini API** for natural language processing.
 
 ---
 ## 🧠 Key Feature: AI-Powered Automation  
 – Control Everything via Chatbot (ONLY SUPPORTS WITH THE API AND TRAINED MODEL)
-Basheera’s **AI chatbot** is the central control hub of the application, allowing users to interact naturally without manual navigation. The chatbot can:  
+**AI chatbot** is the central control hub of the application, allowing users to interact naturally without manual navigation. The chatbot can:  
 
 - ✅ **Manage Tasks** – Add, complete, delete, and organize tasks seamlessly.  
 - 💰 **Track Expenses** – Log, categorize, and analyze spending with ease.  
@@ -13,7 +13,7 @@ Basheera’s **AI chatbot** is the central control hub of the application, allow
 - ✍️ **Generate Content** – Write essays, summarize text, and assist with information-based tasks.  
 - 🗣️ **Support Local Languages** – Communicate in multiple languages for a personalized experience.  
 
-With **Basheera**, your AI assistant is more than just a chatbot—it's an **intelligent automation tool** that streamlines your workflow and enhances productivity. 🚀  
+With this app, your AI assistant is more than just a chatbot—it's an **intelligent automation tool** that streamlines your workflow and enhances productivity. 🚀  
 
 ---
 
@@ -92,7 +92,7 @@ To install all required workloads automatically in **Visual Studio 2022**, follo
 ### 📦 Install NuGet Dependencies
 Run the following command in the project directory:
 ```sh
-nuget restore Basheera.sln
+nuget restore Personal_Assistant.sln
 ```
 
 ---
@@ -105,13 +105,13 @@ nuget restore Basheera.sln
 # Previews From The App
 
 ## 🎥 Preview Video  
-Watch the full demo of **Basheera** here:  
+Watch the full demo of **App** here:  
 [![App Preview](https://img.youtube.com/vi/tndlH-q10DA/maxresdefault.jpg)](https://www.youtube.com/watch?v=tndlH-q10DA)  
 
 ## 🖥️ Screenshots  
-Here are some previews of **Basheera** in action:  
+Here are some previews of **App** in action:  
 
-![Basheera Authentication](screenshots/Auth.png)  
+![App Authentication](screenshots/Auth.png)  
 *Secure user authentication screen.*  
 
 ![Home](screenshots/Home.png)  
@@ -126,7 +126,7 @@ Here are some previews of **Basheera** in action:
 ![Browser](screenshots/Browser.png)  
 *Browser.*  
 
-![Basheera Chat](screenshots/ChatBot.png)  
+![AI Chat](screenshots/ChatBot.png)  
 *AI-powered chatbot interface.*  
 
 

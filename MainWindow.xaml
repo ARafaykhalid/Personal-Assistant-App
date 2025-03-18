@@ -1,0 +1,1305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="Personal_Assistant.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Personal_Assistant"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Personal Assistant">
+    
+    
+
+    <Grid>
+        
+        <!-- Background Image -->
+        <Grid>
+
+            <Rectangle x:Name="AuthBG" Visibility="Visible" Width="Auto" Height="Auto">
+                <Rectangle.Fill>
+                    <ImageBrush 
+                        ImageSource="Assets/BG6.jpg"
+                        Stretch="UniformToFill">
+                    </ImageBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <Rectangle x:Name="MenuBG" Visibility="Collapsed" Width="Auto" Height="Auto">
+                <Rectangle.Fill>
+                    <ImageBrush 
+                        ImageSource="Assets/BG5.jpg"
+                        Stretch="UniformToFill">
+                    </ImageBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+
+            <Rectangle 
+                x:Name="ProgressRingBackground" 
+                Width="Auto" 
+                Height="Auto" 
+                Visibility="Collapsed" 
+                Fill="{ThemeResource AcrylicInAppFillColorBaseBrush}">
+            </Rectangle>
+
+
+            <ProgressRing 
+                x:Name="ProgressRingAuth"
+                Width="60" 
+                Height="60" 
+                Value="0"
+                Visibility="Visible"
+                IsIndeterminate="False">
+
+            </ProgressRing>
+
+
+            
+        </Grid>
+
+
+
+        <Grid
+            x:Name="Auth">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Login/Registration-->
+            <StackPanel
+                x:Name="AuthMenuBackground"
+                Grid.Column="0"
+                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                Orientation="Vertical"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="300"
+                Height="350"
+                CornerRadius="25"
+                BorderThickness="1"
+                BorderBrush="gray"
+                Opacity="1"
+                Visibility="Visible">
+
+                <!--Auth Menu-->
+                <NavigationView
+                    x:Name="AuthMenu"
+                    Margin="60,0,0,0"
+                    HorizontalAlignment="Center"
+                    PaneDisplayMode="Top"
+                    IsSettingsVisible="False"
+                    IsBackButtonVisible="Collapsed"
+                    SelectionChanged="Auth_Menu_SelectionChanged">
+                    <NavigationView.MenuItems>
+                        <NavigationViewItem 
+                            Content="Sign In"
+                            Tag="SignIn">
+                        </NavigationViewItem>
+
+                        <NavigationViewItem 
+                            Content="Sign Up" 
+                            Tag="SignUp">
+                        </NavigationViewItem>
+                    </NavigationView.MenuItems>
+                </NavigationView>
+
+                <!--Info Bar-->
+                <InfoBar
+                    x:Name="ErrorForAuth"
+                    IsOpen="False"
+                    Severity="Error"
+                    Message="Invalid Username/Password!" 
+                    IsClosable="False">
+
+                </InfoBar>
+
+                <!-- Login Panel -->
+                <StackPanel
+                    x:Name="SignIn"
+                    Visibility="Collapsed">
+
+                    <!-- Header -->
+                    <TextBlock 
+                        x:Name="SignInHeading" 
+                        HorizontalAlignment="Center" 
+                        FontSize="25" 
+                        Margin="0,55,107,0"
+                        FontWeight="Bold"
+                        Text="Sign In">
+                    </TextBlock>
+
+
+                    <!-- Progress Bar -->
+                    <ProgressBar 
+                        HorizontalAlignment="Left" 
+                        Width="85" 
+                        Value="100" 
+                        Margin="54,2,0,0">
+
+                    </ProgressBar>
+
+                    <!-- Username-->
+                    <TextBox 
+                        x:Name="SignInUsername" 
+                        PlaceholderText="Username" 
+                        Width="200" 
+                        Margin="0,25,0,0">
+
+                    </TextBox>
+
+                    <!--Password-->
+                    <PasswordBox 
+                        x:Name="SignInPassword" 
+                        PlaceholderText="Password" 
+                        Width="200" 
+                        Margin="0,10,0,0" 
+                        AutomationProperties.Name="Simple PasswordBox">
+
+                    </PasswordBox>
+
+                    <!--Remember Me-->
+                    <ToggleSwitch 
+                        x:Name="RememberMe" 
+                        OnContent="Remember Me"
+                        OffContent="Don't Remember Me"
+                        IsOn="False" 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Center"
+                        Margin="0,0,20,0">
+
+                    </ToggleSwitch>
+
+                    <!-- Sign In Button -->
+                    <Button 
+                        x:Name="SignInButton" 
+                        HorizontalAlignment="Right" 
+                        Width="75" 
+                        Margin="0,10,50,0" 
+                        Style="{StaticResource AccentButtonStyle}" 
+                        Content="Sign In" 
+                        Click="SignInButton_Click">
+
+                    </Button>
+
+                </StackPanel>
+
+                <!-- Signup Panel -->
+                <StackPanel
+                    x:Name="Registration"
+                    Visibility="Collapsed">
+
+                    <!--Header-->
+                    <TextBlock 
+                        x:Name="RegistrationHeading" 
+                        HorizontalAlignment="Center" 
+                        FontSize="25" 
+                        Margin="0,57,105,0"
+                        Text="Sign Up"
+                        FontWeight="Bold">
+                    </TextBlock>
+
+                    <!-- Progress Bar -->
+                    <ProgressBar 
+                        HorizontalAlignment="Left" 
+                        Width="95" 
+                        Value="100" 
+                        Margin="50,2,0,0">
+
+                    </ProgressBar>
+
+                    <!-- Input Fields -->
+                    <TextBox 
+                        x:Name="RegistrationName" 
+                        PlaceholderText="Full Name" 
+                        Width="200" 
+                        Margin="0,25,0,0">
+
+                    </TextBox>
+
+                    <!--Username-->
+                    <TextBox 
+                        x:Name="RegistrationUsername" 
+                        PlaceholderText="Username" 
+                        Width="200"
+                        Margin="0,10,0,0">
+
+                    </TextBox>
+
+                    <!--Password-->
+                    <PasswordBox 
+                        x:Name="RegistrationPassword" 
+                        PlaceholderText="Password" 
+                        Width="200" 
+                        Margin="0,10,0,0"
+                        AutomationProperties.Name="Simple PasswordBox">
+
+                    </PasswordBox>
+
+                    <!-- Date Of Birth -->
+                    <StackPanel 
+                        Orientation="Horizontal" 
+                        Margin="50,10,0,0">
+                        <CalendarDatePicker 
+                            x:Name="dobPicker" 
+                            HorizontalAlignment="Left" 
+                            Width="200" 
+                            PlaceholderText="Date Of Birth">
+
+                        </CalendarDatePicker>
+                    </StackPanel>
+
+
+                    <!-- Sign Up Button -->
+                    <Button
+                        x:Name="RegistrationButton"
+                        HorizontalAlignment="Right"
+                        Width="75" 
+                        Margin="0,10,50,0"
+                        Style="{StaticResource AccentButtonStyle}" 
+                        Content="Sign Up" 
+                        Click="RegistrationButton_Click">
+
+                    </Button>
+
+                </StackPanel>
+            </StackPanel>
+
+
+        </Grid>
+
+        
+        
+        
+        <!-- Main App -->
+        <NavigationView 
+            x:Name="MainMenu"  
+            IsBackButtonVisible="Collapsed" 
+            Visibility="Collapsed" 
+            IsSettingsVisible="False" 
+            SelectionChanged="MainMenu_SelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItem 
+                    Padding="50"
+                    Icon="Home" 
+                    Content="Home" 
+                    Tag="HomePage">
+
+                </NavigationViewItem>
+
+                <NavigationViewItem 
+                    Padding="49"
+                    Icon="Calculator" 
+                    Content="Expense Calculator" 
+                    Tag="ExpenseCalculatorPage">
+
+                </NavigationViewItem>
+
+                <NavigationViewItem 
+                    Padding="49"
+                    Icon="List" 
+                    Content="To Do List" 
+                    Tag="ToDoListPage">
+
+                </NavigationViewItem>
+
+                <NavigationViewItem 
+                    Padding="49"
+                    Icon="Globe"  
+                    Content="Browser" 
+                    Tag="BrowserPage">
+
+                </NavigationViewItem>
+
+                <NavigationViewItem 
+                    Padding="49"
+                    Icon="Message"  
+                    Content="AI Assistant" 
+                    Tag="ChatBotPage">
+
+                </NavigationViewItem>
+                <NavigationViewItem 
+                    Padding="49"
+                    Icon="Setting" 
+                    Content="LogOut" 
+                    Tag="AuthSettingsPage">
+
+                </NavigationViewItem>
+
+
+            </NavigationView.MenuItems>
+
+            <!--Content-->
+            <Grid>
+                <TeachingTip 
+                    x:Name="ErrorForMenu"
+                    Title="❌ Error!"
+                    Subtitle="Something Went Wrong!"
+                    PreferredPlacement="BottomRight"
+                    PlacementMargin="20"
+                    IsLightDismissEnabled="True"
+                    CloseButtonContent="Dismiss"
+                    Margin="10" 
+                    CornerRadius="12"
+                    BorderBrush="#C62828"
+                    BorderThickness="2">
+                </TeachingTip>
+
+
+
+                <!--Home-->
+                <Grid 
+                    x:Name="Home" 
+                    Visibility="Visible"
+                    VerticalAlignment="Stretch">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Margin="25" Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- Header -->
+                            <RowDefinition Height="*" />
+                            <!-- Content -->
+                        </Grid.RowDefinitions>
+
+                        <Border
+                            Width="Auto"
+                            HorizontalAlignment="Left"
+                            Height="50"
+                            CornerRadius="10"
+                            Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                            BorderBrush="Gray"
+                            Grid.Row="0">
+                            <StackPanel 
+                                Orientation="Horizontal" 
+                                VerticalAlignment="Top"
+                                Margin="5">
+                                <Viewbox Width="14" Height="14">
+                                    <SymbolIcon Symbol="Favorite"/>
+                                </Viewbox>
+                                <TextBlock 
+                                    FontFamily="Kanit" 
+                                    Margin="5,0,0,0"
+                                    Text="|  Welcome!:">
+                                    
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+
+                        <Border 
+                            CornerRadius="10"
+                            Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                            Margin="0,-25,0,0"
+                            Grid.Row="1"
+                            VerticalAlignment="Stretch">
+                            <Grid Margin="10" VerticalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid
+                                    Grid.Column="0"
+                                    VerticalAlignment="Stretch">
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Grid.Row="0">
+                                            
+                                        <TextBlock
+                                            x:Name="GreetingTextBlock"
+                                            Text="Greeting User!" 
+                                            FontSize="36" 
+                                            FontWeight="Bold"
+                                            TextWrapping="Wrap">
+                                        
+                                        </TextBlock>
+                                    
+                                        <TextBlock
+                                            x:Name="DateBlock"
+                                            Text="Date: 00/00/0000" 
+                                            FontSize="24" 
+                                            TextWrapping="Wrap">
+                                        
+                                        </TextBlock>
+                                        <TextBlock
+                                            x:Name="TimeBlock"
+                                            Text="Time: 00:00:00" 
+                                            FontSize="24"
+                                            TextWrapping="Wrap">
+                                        
+                                        </TextBlock>
+                                    
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="1">
+                                            
+                                        <TextBlock
+                                            Margin="0,30,0,0"
+                                            Text="This Is The Only Assistant You Need!" 
+                                            FontSize="36" 
+                                            FontWeight="Bold"
+                                            TextWrapping="Wrap">
+                                        
+                                        </TextBlock>
+
+                                        <TextBlock 
+                                            Text="Basheera is an AI-powered voice assistant designed for mobile and desktop, enabling users to track tasks, manage expenses, and perform essential actions hands-free. Built to support Sustainable Development Goals (SDGs), it promotes Goal 4 (Quality Education) by assisting individuals with limited literacy and Goal 10 (Reduced Inequalities) by empowering the visually impaired with seamless digital accessibility. With smart voice recognition, Basheera makes technology inclusive, ensuring productivity and independence for everyone." 
+                                            TextWrapping="Wrap">
+                                        
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="2">
+                                        <TextBlock
+                                            Margin="0,30,0,0"
+                                            Text="What To Add Next:" 
+                                            FontSize="36" 
+                                            FontWeight="Bold"
+                                            TextWrapping="Wrap">
+
+                                        </TextBlock>
+
+                                        <TextBlock
+                                            Text="-Voice Recognition (Speech To String)&#x0a;-Agent Voice (String to Speech)[Already Added But Still In Beta]">
+                                            
+                                        </TextBlock>
+
+                                    </StackPanel>
+                                    
+                                </Grid>
+
+                                <Image
+                                    Grid.Column="1"
+                                    Source="Assets/BadgeLogo.scale-400.png"
+                                    Margin="10"
+                                    VerticalAlignment="Stretch">
+                                    
+                                </Image>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+
+                <Grid 
+                    x:Name="ToDoList" 
+                    Visibility="Collapsed">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Left Panel: Add Task & Completed Tasks -->
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- Add Task Section -->
+                            <RowDefinition Height="*"/>
+                            <!-- Completed Tasks (Stretch) -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Add Task Section -->
+                        <StackPanel 
+                            Grid.Row="0">
+                            <Border
+                                Width="Auto"
+                                HorizontalAlignment="Left"
+                                Height="50"
+                                CornerRadius="10"
+                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                                BorderBrush="Gray"
+                                Margin="25">
+                                <StackPanel 
+                                    Orientation="Horizontal" 
+                                    VerticalAlignment="Top"
+                                    Margin="5">
+                                    <Viewbox Width="14" Height="14">
+                                        <SymbolIcon Symbol="List"/>
+                                    </Viewbox>
+                                    <TextBlock 
+                                        FontFamily="Kanit" 
+                                        Margin="5,0,0,0"
+                                        Text="|  Add Task:">
+                                        
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+
+                            <Border 
+                                CornerRadius="10"
+                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                                Margin="25,-50,25,25">
+                                <Grid Margin="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="75"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBox 
+                                            x:Name="TaskName"
+                                            Grid.Column="0"
+                                            PlaceholderText="Task Heading"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Center"
+                                            Height="30">
+                                            
+                                        </TextBox>
+
+                                        <AppBarButton
+                                            Grid.Column="1"
+                                            Height="50"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Icon="Add"
+                                            Click="AddTaskButton_Click">
+                                            
+                                        </AppBarButton>
+                                    </Grid>
+
+                                    <TextBox 
+                                        x:Name="TaskDescription"
+                                        Grid.Row="1"
+                                        PlaceholderText="Description About The Task"
+                                        Height="200"
+                                        TextWrapping="Wrap">
+                                        
+                                    </TextBox>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Completed Tasks Section (Stretched) -->
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Header -->
+                            <Border 
+                                Grid.Row="0"
+                                HorizontalAlignment="Left"
+                                Height="50"
+                                CornerRadius="10"
+                                Background="#A100FF00"
+                                BorderBrush="Gray"
+                                Margin="25,0,25,25">
+                                <StackPanel 
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Top" 
+                                    Margin="5">
+                                    <Viewbox 
+                                        Width="14" 
+                                        Height="14">
+                                        <SymbolIcon Symbol="Calculator"/>
+                                    </Viewbox>
+                                    <TextBlock 
+                                        FontFamily="Kanit" 
+                                        Margin="5,0,0,0"
+                                        Text="|  Completed Tasks:">
+                                        
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+
+                            <Border 
+                                Grid.Row="1"
+                                CornerRadius="10"
+                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                                Margin="25,-50,25,25"
+                                VerticalAlignment="Stretch"
+                                HorizontalAlignment="Stretch">
+                                <ListView 
+                                    x:Name="CompletedTaskList"
+                                    SelectionMode="None"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0,15,0,0">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Expander Background="#1A00FFAA"
+                                                Foreground="White"
+                                                CornerRadius="8"
+                                                HorizontalAlignment="Stretch">
+                                                <Expander.Header>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="100"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock 
+                                                            Grid.Column="0"
+                                                            Text="{Binding Title}"
+                                                            FontSize="18"
+                                                            FontWeight="Bold"
+                                                            VerticalAlignment="Center"
+                                                            TextDecorations="Strikethrough">
+                                                            
+                                                        </TextBlock>
+
+                                                        <AppBarButton 
+                                                            Grid.Column="1"
+                                                            Height="50"
+                                                            HorizontalAlignment="Right"
+                                                            Width="50"
+                                                            Background="#C62828"
+                                                            Foreground="White"
+                                                            VerticalAlignment="Center"
+                                                            Icon="Delete"
+                                                            Click="DeleteCompletedTask_Click"
+                                                            Tag="{Binding Title}">
+                                                            
+                                                        </AppBarButton>
+                                                    </Grid>
+                                                </Expander.Header>
+
+                                                <Expander.Content>
+                                                    <TextBlock 
+                                                        Text="{Binding Description}"
+                                                        Foreground="LightGray"
+                                                        Padding="10"
+                                                        TextWrapping="Wrap">
+                                                        
+                                                    </TextBlock>
+                                                </Expander.Content>
+                                            </Expander>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Border>
+                        </Grid>
+                    </Grid>
+
+                    <!-- Right Panel: Uncompleted Tasks (Stretched) -->
+                    <Grid Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- Header -->
+                            <RowDefinition Height="*"/>
+                            <!-- ListView (Stretch) -->
+                        </Grid.RowDefinitions>
+
+                        <Border 
+                            Grid.Row="0"
+                            HorizontalAlignment="Left"
+                            Height="50"
+                            CornerRadius="10"
+                            Background="#A1FF0000"
+                            BorderBrush="Gray"
+                            Margin="25">
+                            <StackPanel 
+                                Orientation="Horizontal"
+                                VerticalAlignment="Top" 
+                                Margin="5">
+                                <Viewbox 
+                                    Width="14" 
+                                    Height="14">
+                                    <SymbolIcon Symbol="Calculator"/>
+                                </Viewbox>
+                                <TextBlock 
+                                    FontFamily="Kanit" 
+                                    Margin="5,0,0,0"
+                                    Text="|  Remaining Tasks:">
+                                    
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+
+                        <Border 
+                            Grid.Row="1"
+                            CornerRadius="10"
+                            Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                            Margin="25,-50,25,25"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch">
+                            <ListView 
+                                x:Name="UncompletedTaskList"
+                                SelectionMode="None"
+                                VerticalAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
+                                Margin="0,15,0,0">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Expander 
+                                            Background="#1AFF6666"
+                                            Foreground="White"
+                                            CornerRadius="8"
+                                            HorizontalAlignment="Stretch">
+                                            <Expander.Header>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="150" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <TextBlock 
+                                                        Grid.Column="0"
+                                                        Text="{Binding Title}"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="18"
+                                                        FontWeight="Bold">
+                                                        
+                                                    </TextBlock>
+
+                                                    <AppBarButton 
+                                                        Grid.Column="1"
+                                                        Icon="Go"
+                                                        Background="#388E3C"
+                                                        Height="50"
+                                                        Width="50"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="White"
+                                                        Tag="{Binding Title}"
+                                                        Click="CompleteTask_Click">
+                                                        
+                                                    </AppBarButton>
+                                                </Grid>
+                                            </Expander.Header>
+
+                                            <Expander.Content>
+                                                <TextBlock 
+                                                    Text="{Binding Description}"
+                                                    TextWrapping="Wrap"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="White">
+                                                    
+                                                </TextBlock>
+                                            </Expander.Content>
+                                        </Expander>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Border>
+                    </Grid>
+                </Grid>
+
+
+
+
+                <!--Expense Calculator-->
+                <Grid x:Name="ExpenseCalculator" Visibility="Collapsed">
+
+                    <!-- Define Two Columns -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Left Side: Expense Calculation -->
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <!-- Allows stretching -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Total Expenses -->
+                        <StackPanel 
+                            x:Name="Total_Expense"
+                            Grid.Row="0"> 
+                            <Border 
+                                HorizontalAlignment="Left" 
+                                Height="50" 
+                                CornerRadius="10" 
+                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
+                                BorderBrush="Gray" 
+                                Margin="25">
+                                <StackPanel 
+                                    Margin="5" 
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Top">
+                                    <Viewbox 
+                                        Width="14" 
+                                        Height="14">
+                                        <SymbolIcon Symbol="Calculator"/>
+                                    </Viewbox>
+                                    <TextBlock 
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" 
+                                        FontFamily="Kanit" 
+                                        Margin="5,0,0,0" 
+                                        Text="|  Total Expenses Of This Month:">
+                                        
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+
+                            <Border 
+                                CornerRadius="10" 
+                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
+                                Margin="25,-50,25,25">
+                                <StackPanel 
+                                    Margin="10" 
+                                    Orientation="Horizontal">
+                                    <TextBlock 
+                                        x:Name="TotalExpense" 
+                                        Text="0" 
+                                        FontFamily="Rubik" 
+                                        FontSize="80">
+                                        
+                                    </TextBlock>
+                                    <TextBlock 
+                                        Text=" PKR" 
+                                        FontFamily="Rubik" 
+                                        FontWeight="Bold">
+                                        
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Add Expense -->
+                        <StackPanel 
+                            Grid.Row="1" 
+                            x:Name="AddExpense">
+                            <Border 
+                                HorizontalAlignment="Left" 
+                                Height="50" 
+                                CornerRadius="10" 
+                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
+                                BorderBrush="Gray" 
+                                Margin="25">
+                                <StackPanel 
+                                    Margin="5" 
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Top">
+                                    <Viewbox 
+                                        Width="14" 
+                                        Height="14">
+                                        <SymbolIcon Symbol="Calculator"/>
+                                    </Viewbox>
+                                    <TextBlock 
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" 
+                                        FontFamily="Kanit" 
+                                        Margin="5,0,0,0" 
+                                        Text="|  Add Expense:">
+                                        
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+
+                            <Border 
+                                CornerRadius="10" 
+                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"     
+                                Margin="25,-50,25,25">
+                                <Grid Padding="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="75"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    
+                                    <NumberBox 
+                                        x:Name="ExpenseAmount" 
+                                        Grid.Column="0" 
+                                        Grid.Row="0"
+                                        PlaceholderText="Amount" 
+                                        Minimum="0" 
+                                        Height="35">
+                                        
+                                    </NumberBox>
+                                    <TextBox 
+                                        x:Name="ExpenseReason" 
+                                        Grid.Column="1" 
+                                        PlaceholderText="Reason" 
+                                        Height="30" 
+                                        Margin="5,0,0,0">
+                                        
+                                    </TextBox>
+                                    <AppBarButton 
+                                        Grid.Column="2" 
+                                        Icon="Add" 
+                                        Click="AddExpense_Click" 
+                                        Height="50">
+                                        
+                                    </AppBarButton>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Right Side: Expense History -->
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*" />
+                            <!-- Allows ListView to stretch -->
+                        </Grid.RowDefinitions>
+
+                        <StackPanel 
+                            Grid.Row="0">
+                            <Border 
+                                HorizontalAlignment="Left" 
+                                Height="50" 
+                                CornerRadius="10" 
+                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
+                                BorderBrush="Gray" 
+                                Margin="25">
+                                <StackPanel 
+                                    Margin="5" 
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Top">
+                                    <Viewbox 
+                                        Width="14" 
+                                        Height="14">
+                                        <SymbolIcon Symbol="Calculator"/>
+                                    </Viewbox>
+                                    <TextBlock 
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" 
+                                        FontFamily="Kanit" 
+                                        Margin="5,0,0,0" 
+                                        Text="|  Expense History:">
+                                        
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Expense History List -->
+                        <Border 
+                            Grid.Row="1" 
+                            CornerRadius="10" 
+                            Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
+                            Margin="25,-50,25,25">
+                            <ListView 
+                                x:Name="ExpenseList" 
+                                Background="Transparent" 
+                                ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                SelectionMode="None">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid 
+                                            Margin="5" 
+                                            Padding="10" 
+                                            Background="Transparent">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock 
+                                                Text="{Binding}" 
+                                                Foreground="White" 
+                                                VerticalAlignment="Center" 
+                                                TextWrapping="Wrap">
+                                                
+                                            </TextBlock>
+
+                                            <AppBarButton 
+                                                Grid.Column="1" 
+                                                Icon="Delete" 
+                                                Background="#C62828" 
+                                                Foreground="White" 
+                                                Click="DeleteExpense_Click"
+                                                VerticalAlignment="Center"
+                                                Height="50"
+                                                Tag="{Binding}">
+                                            </AppBarButton>
+
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Border>
+                    </Grid>
+                </Grid>
+
+
+
+                <!-- Browser -->
+                <Grid x:Name="Browser" Visibility="Collapsed">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Header -->
+                        <RowDefinition Height="*"/>
+                        <!-- Browser Content -->
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Header -->
+                    <Border 
+                        Grid.Row="0"
+                        HorizontalAlignment="Left" 
+                        Height="50"
+                        CornerRadius="10"  
+                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
+                        BorderBrush="Gray"
+                        Margin="25"
+                        Width="auto">
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="5">
+                            <Viewbox Width="14" Height="14">
+                                <SymbolIcon Symbol="Globe"/>
+                            </Viewbox>
+                            <TextBlock 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center" 
+                                FontFamily="Kanit" 
+                                Margin="5,0,0,0"
+                                Text="|  Browser:">
+
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Browser Content -->
+                    <Border 
+                        Grid.Row="1" 
+                        CornerRadius="10"
+                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
+                        Margin="25,-50,25,25">
+                        <Grid>
+                            <WebView2 x:Name="MyWebView2"
+                            Source="https://google.com"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"/>
+                        </Grid>
+                    </Border>
+
+                </Grid>
+
+
+                <!--ChatBot-->
+                <Grid x:Name="Chatbot" Visibility="Collapsed">
+                    <!-- Main Grid Layout -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Header -->
+                        <RowDefinition Height="*"/>
+                        <!-- Chat Area -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Input Area -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Header -->
+                    <Border 
+                        Grid.Row="0"
+                        HorizontalAlignment="Left" 
+                        Height="50"
+                        CornerRadius="10"  
+                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
+                        BorderBrush="Gray"
+                        Margin="25"
+                        Width="auto">
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="5">
+                            <Viewbox Width="14" Height="14">
+                                <SymbolIcon Symbol="Message"/>
+                            </Viewbox>
+                            <TextBlock 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center" 
+                                FontFamily="Kanit" 
+                                Margin="5,0,0,0"
+                                Text="|  AI Assistant:">
+                                
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Chat Messages (Stretching Properly) -->
+                    <Border 
+                        Grid.Row="1"
+                        CornerRadius="10"
+                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
+                        Margin="25,-50,25,25"
+                        Padding="10"
+                        VerticalAlignment="Stretch">
+                        <ScrollViewer 
+                            x:Name="ChatMessagesScrollViewer"
+                            VerticalScrollBarVisibility="Auto"
+                            HorizontalScrollBarVisibility="Disabled">
+
+                            <StackPanel x:Name="ChatMessagesPanel" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock
+                                    x:Name="ChatbotResponseText" 
+                                    Text="Hello! How may I help you?"
+                                    IsTextSelectionEnabled="True"
+                                    TextWrapping="Wrap"
+                                    FontSize="25"
+                                    FontFamily="Rubik"
+                                    FontWeight="Bold"
+                                    Margin="5">
+                                    
+                                </TextBlock>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                    </Border>
+
+                    <!-- Input Area (Fixed at the Bottom) -->
+                    <Grid Grid.Row="2" Margin="25" Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- User Input Box -->
+                        <TextBox 
+                            x:Name="UserInputTextBox" 
+                            Grid.Column="0" 
+                            PlaceholderText="Type your message here..."
+                            VerticalAlignment="Center"
+                            Height="40"/>
+
+                        <!-- Send Button -->
+                        <AppBarButton
+                            Grid.Column="1" 
+                            Height="50" 
+                            Width="50"
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Right"
+                            Icon="Send"
+                            Click="SendButton_Click">
+                            
+                        </AppBarButton>
+                    </Grid>
+                </Grid>
+
+
+                <!-- LogOut Menu -->
+                <Grid 
+                    x:Name="LogOut" 
+                    Visibility="Collapsed">
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel
+                            Grid.Row="0" 
+                            Grid.Column="0">
+                        <Border
+                                HorizontalAlignment="Left" 
+                                Width="auto" 
+                                Height="50"
+                                CornerRadius="10"  
+                                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
+                                BorderBrush="Gray"
+                            
+                                Margin="25">
+
+                            <StackPanel 
+                                    Margin="5" 
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Top">
+
+                                <Viewbox 
+                                        Width="14" 
+                                        Height="14">
+                                    <SymbolIcon Symbol="Setting"/>
+                                </Viewbox>
+                                <TextBlock 
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" 
+                                        FontFamily="Kanit" 
+                                        Margin="5,0,0,0"
+                                        Text="|  Auth Settings:">
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+                        <StackPanel 
+                                Margin="0,-75,0,0">
+
+                            <Border 
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    CornerRadius="10"
+                                    Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
+                                    Margin="25">
+
+                                <StackPanel 
+                                        Margin="10">
+                                    <TextBlock 
+                                            Text="I hope you enjoyed using my app as much as I enjoyed creating it! This project was a great learning experience for me, and I aimed to make the app as user-friendly and functional as possible. Your feedback would mean a lot, as it can help me improve and refine it further. Thank you for taking the time to explore my work—I appreciate your support and hope the app met your expectations!" 
+                                            FontFamily="Rajdhani"
+                                            TextWrapping="WrapWholeWords">
+
+                                    </TextBlock>
+                                    <ToggleSwitch 
+                                            x:Name="Sound" 
+                                            OnContent="UI Sound On"
+                                            OffContent="UI Sound Off"
+                                            IsOn="True" 
+                                            Margin="0,50,0,0"
+                                            HorizontalAlignment="Left"
+                                            Toggled="Sound_Toggled">
+                                    </ToggleSwitch>
+                                    <Button 
+                                            x:Name="LogOutButton" 
+                                            HorizontalAlignment="Right" 
+                                            Width="75" 
+                                            Visibility="Visible"
+                                            Content="LogOut"
+                                            Background="#C62828">
+
+                                        <Button.Flyout>
+                                            <Flyout>
+                                                <StackPanel>
+                                                    <TextBlock 
+                                                            Style="{ThemeResource BaseTextBlockStyle}" 
+                                                            Text="All Web Sessions Will Also Get Logged Out! Proceed?" 
+                                                            TextWrapping="WrapWholeWords"
+                                                            Margin="0,0,0,12" />
+                                                    <Button 
+                                                            Click="LogOutButton_Click" 
+                                                            Content="Proceed Now!"
+                                                            Style="{StaticResource AccentButtonStyle}">
+
+                                                    </Button>
+                                                </StackPanel>
+                                            </Flyout>
+                                        </Button.Flyout>
+
+                                    </Button>
+
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                    </StackPanel>
+
+
+
+                </Grid>
+
+
+            </Grid>
+
+
+        </NavigationView>
+
+    </Grid>
+</Window>
